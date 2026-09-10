@@ -14,7 +14,7 @@ test("customer can submit a booking", async ({ page }) => {
 
   await page.getByLabel("Date of service").fill("2026-09-15");
 
-  await page.getByRole("button", { name: /get quote/i }).click();
+  await page.getByRole("button", { name: /book pet sitter/i }).click();
 
   await expect(page.getByText(/booking created/i)).toBeVisible();
 });
@@ -24,7 +24,7 @@ test("shows validation errors when required fields are empty", async ({
 }) => {
   await page.goto("/");
 
-  await page.getByRole("button", { name: /get quote/i }).click();
+  await page.getByRole("button", { name: /book pet sitter/i }).click();
 
   await expect(page.getByText(/first name required/i)).toBeVisible();
   await expect(page.getByText(/last name required/i)).toBeVisible();

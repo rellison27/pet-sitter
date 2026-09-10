@@ -244,7 +244,7 @@ export default function BookingForm({ form }: BookingFormProps) {
                   disabled={!canSubmit || isSubmitting}
                   className="h-11 rounded-lg px-6 text-sm font-medium shadow-sm"
                 >
-                  {isSubmitting ? "Submitting..." : "Get quote"}
+                  {isSubmitting ? "Submitting..." : "Book Pet Sitter"}
                 </Button>
               )}
             </form.Subscribe>
