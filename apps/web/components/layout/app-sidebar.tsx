@@ -17,28 +17,29 @@ export default function AppSidebar() {
   return (
     <Sidebar side="left" collapsible="icon">
       <SidebarContent>
-        <SidebarGroup className="">
-          <SidebarMenu>
+        <SidebarGroup>
+          <SidebarMenu className="gap-2">
             <SidebarMenuItem>
               <SidebarMenuButton
                 render={<a href="/" />}
                 isActive={pathName === "/"}
-                className=" data-[active=true]:bg-primary data-[active=true]:text-primary-foreground data-[active=true]:font-medium"
+                className=" h-11 px-3 data-[active=true]:bg-primary data-[active=true]:text-primary-foreground data-[active=true]:font-medium"
               >
-                <ClipboardList className="size-10" />
-                <span className="text-2xl">Book Now</span>
+                <CalendarDays className="size-5" />
+
+                <span className="text-base">Book Now</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton
                 render={<a href="/admin" />}
                 isActive={pathName === "/admin"}
-                className="data-[active=true]:bg-primary
+                className="h-11 px-3 data-[active=true]:bg-primary
     data-[active=true]:text-primary-foreground
     data-[active=true]:font-medium"
               >
-                <CalendarDays className="size-5" />
-                <span>Past Bookings</span>
+                <ClipboardList className="size-5" />
+                <span className="text-base">Past Bookings</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
