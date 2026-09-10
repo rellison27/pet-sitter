@@ -1,5 +1,6 @@
 import * as z from "zod";
 import { animalTypes } from "../types/type";
+import { getToday } from "../helpers";
 
 export const hoursRequiredSchema = z.coerce
   .number()
@@ -32,7 +33,11 @@ export const bookingSchema = z.object({
     .max(13, "Pet name must be 13 characters or less"),
   petType: animalTypeSchema,
   hoursRequired: hoursSchema,
-  dateOfService: z.string().min(1, "Date of service is required"),
+  dateOfService: z.iso
+    .date("A valid date of service is required")
+    .refine((date) => date >= getToday(), {
+      message: "Date of service cannot be in the past",
+    }),
 });
 
 export type BookingInput = z.infer<typeof bookingSchema>;
