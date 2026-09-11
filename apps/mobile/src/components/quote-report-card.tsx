@@ -1,7 +1,7 @@
 import { QuoteResponse } from "@pet-sitting/shared";
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Spacing } from "@/constants/theme";
 
 type QuoteReportCardProps = {
@@ -14,16 +14,26 @@ export default function QuoteReportCard({ quote }: QuoteReportCardProps) {
       <ThemedText type="small">
         As you change your options give us a second to adjust the price
       </ThemedText>
-      <ThemedText>
-        Base services: {quote ? `$${quote?.basePrice}` : ""}
-      </ThemedText>
-      <ThemedText>
-        Pet sitting:
-        {quote
-          ? `${quote?.hourlyRate} x ${quote?.hours} hours $${quote?.hourlyRate * quote?.hours}`
-          : ""}
-      </ThemedText>
-      <ThemedText>Total: {quote ? `$${quote?.totalPrice}` : ""}</ThemedText>
+      <View style={styles.quoteRow}>
+        <ThemedText>Base services:</ThemedText>
+        <ThemedText>{quote ? `$${quote?.basePrice}` : ""}</ThemedText>
+      </View>
+
+      <View>
+        <ThemedText>Pet sitting:</ThemedText>
+        <View style={styles.quoteRow}>
+          <ThemedText>
+            {quote ? `${quote?.hourlyRate} x ${quote?.hours} hours` : ""}
+          </ThemedText>
+          <ThemedText>
+            {quote ? `$${quote?.hourlyRate * quote?.hours}` : ""}
+          </ThemedText>
+        </View>
+      </View>
+      <View style={styles.quoteRow}>
+        <ThemedText>Total: </ThemedText>
+        <ThemedText>{quote ? `$${quote?.totalPrice}` : ""}</ThemedText>
+      </View>
     </ThemedView>
   );
 }
@@ -33,5 +43,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: Spacing.four,
     gap: Spacing.four,
+  },
+  quoteRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
   },
 });
