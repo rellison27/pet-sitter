@@ -37,6 +37,16 @@ Run Playwright E2E tests:
 pnpm test:e2e
 ```
 
+### Mobile API Setup
+
+The mobile app uses the API provided by the Next.js web app. You need to run both web and mobile apps at the sametime.
+
+Create an `apps/mobile/.env` file:
+
+```env
+EXPO_PUBLIC_API_URL=http://YOUR_LOCAL_IP:3000
+```
+
 ## Assumptions
 
 - Each booking is for one pet and one animal type.
