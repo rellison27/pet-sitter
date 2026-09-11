@@ -3,7 +3,7 @@
 React/TypeScript pet sitting booking app with a web client, shared pricing logic, and an optional Expo mobile client.
 This is using the latest version of all major packages so node and npm need to be atleast 26 and npm I believe it needs to be 11 and up
 
-This is a monorepo, I am atttemting to make having both web and mobile in one repo for ease of use. As loong as you have pnpm and nvm you should be good to get the app up and running.(I say nvm to be able to upgrade to whatever node version necessary. I'm sure you're not running an old npm like me T_T) With that said see below for more info because I ran into issues when I started building.
+This is a monorepo, I am attemting to have both web and mobile in one repo for ease of use. As long as you have pnpm and nvm you should be good to get the app up and running.(I say nvm to be able to upgrade to whatever node version necessary. I'm sure you're not running an old npm like me T_T) With that said see below for more info because I ran into issues when I started building.
 
 ## Environment
 
@@ -26,7 +26,7 @@ The mobile app uses the API provided by the Next.js web app. You need to run bot
 
 Create an `apps/mobile/.env` file:
 
-run: `ipconfig` to get your IPv4 Address and past in the url that will go into you .env
+run: `ipconfig` to get your IPv4 Address and paste in the url that will go into your .env file
 
 ```env
 EXPO_PUBLIC_API_URL=http://YOUR_LOCAL_IP:3000
