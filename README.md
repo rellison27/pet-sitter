@@ -25,16 +25,12 @@ If you run into dependency or Expo setup issues, I recommend using the versions 
 The mobile app uses the API provided by the Next.js web app. You need to run both web and mobile apps at the sametime.
 
 Create an `apps/mobile/.env` file:
-run: ```bash
-ipconfig
 
-````
-
-to get your IPv4 Address and past in the url that will go into you .env
+run: `ipconfig` to get your IPv4 Address and past in the url that will go into you .env
 
 ```env
 EXPO_PUBLIC_API_URL=http://YOUR_LOCAL_IP:3000
-````
+```
 
 ## Run the project
 
