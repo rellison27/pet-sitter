@@ -1,9 +1,15 @@
-import { useState } from "react";
-import { Alert, StyleSheet } from "react-native";
+import { useState, useEffect } from "react";
+import { Alert, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { bookingSchema, type BookingInput } from "@pet-sitting/shared";
+import {
+  bookingSchema,
+  QuoteResponse,
+  type BookingInput,
+} from "@pet-sitting/shared";
 import { ThemedView } from "@/components/themed-view";
 import BookingForm from "@/components/booking-form";
+import QuoteReportCard from "@/components/quote-report-card";
+import { MaxContentWidth, Spacing, BottomTabInset } from "@/constants/theme";
 
 export type FormErrors = Partial<Record<keyof BookingInput, string>>;
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
@@ -19,6 +25,7 @@ export default function HomeScreen() {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
+  const [quote, setQuote] = useState<QuoteResponse>();
 
   function updateField<T extends keyof BookingInput>(
     field: T,
@@ -34,6 +41,30 @@ export default function HomeScreen() {
       [field]: undefined,
     }));
   }
+
+  useEffect(() => {
+    async function getQuote() {
+      if (!API_URL) return;
+
+      try {
+        const response = await fetch(
+          `${API_URL}/api/pricing?animalType=${form.petType}&hours=${form.hoursRequired}`,
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to get quote");
+        }
+
+        const data: QuoteResponse = await response.json();
+
+        setQuote(data);
+      } catch (error) {
+        console.error("Quote request failed:", error);
+      }
+    }
+
+    getQuote();
+  }, [form.petType, form.hoursRequired]);
 
   console.log("errors", errors);
   async function handleSubmit() {
@@ -95,20 +126,21 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
-        <BookingForm
-          form={form}
-          errors={errors}
-          handleSubmit={handleSubmit}
-          updateField={updateField}
-        />
+        <ScrollView style={styles.scrollContent}>
+          <ThemedView style={{ gap: Spacing.four }}>
+            <BookingForm
+              form={form}
+              errors={errors}
+              handleSubmit={handleSubmit}
+              updateField={updateField}
+            />
+            <QuoteReportCard quote={quote} />
+          </ThemedView>
+        </ScrollView>
       </SafeAreaView>
     </ThemedView>
   );
 }
-
-// function capitalize(value: string) {
-//   return value.charAt(0).toUpperCase() + value.slice(1);
-// }
 
 const styles = StyleSheet.create({
   container: {
@@ -117,5 +149,14 @@ const styles = StyleSheet.create({
 
   safeArea: {
     flex: 1,
+  },
+  scrollContent: {
+    width: "100%",
+    maxWidth: MaxContentWidth,
+    alignSelf: "center",
+    paddingHorizontal: Spacing.four,
+    paddingTop: Spacing.four,
+    paddingBottom: BottomTabInset + Spacing.five,
+    gap: Spacing.four,
   },
 });

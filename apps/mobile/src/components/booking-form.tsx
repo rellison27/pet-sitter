@@ -1,6 +1,5 @@
 import { BookingInput } from "@pet-sitting/shared";
 import {
-  ScrollView,
   View,
   TextInput,
   Pressable,
@@ -11,17 +10,10 @@ import {
 import FormField from "./form-field";
 import { ThemedText } from "./themed-text";
 import { ThemedView } from "./themed-view";
-import {
-  MaxContentWidth,
-  Spacing,
-  BottomTabInset,
-  Colors,
-} from "@/constants/theme";
+import { Spacing, Colors } from "@/constants/theme";
 import { FormErrors } from "@/app";
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
-import { useCallback, useState } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { useState } from "react";
 import { formatDate, parseLocalDate } from "./helpers/utils";
 
 type BookingFormProps = {
@@ -50,11 +42,7 @@ export default function BookingForm({
   const hasErrors = Object.values(errors).some((err) => err !== undefined);
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollContent}
-      showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps="handled"
-    >
+    <>
       <View style={styles.header}>
         <ThemedText type="title">Book a Pet Sitter</ThemedText>
 
@@ -284,21 +272,11 @@ export default function BookingForm({
           </ThemedText>
         </Pressable>
       </ThemedView>
-    </ScrollView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollContent: {
-    width: "100%",
-    maxWidth: MaxContentWidth,
-    alignSelf: "center",
-    paddingHorizontal: Spacing.four,
-    paddingTop: Spacing.four,
-    paddingBottom: BottomTabInset + Spacing.five,
-    gap: Spacing.four,
-  },
-
   header: {
     gap: Spacing.two,
   },
